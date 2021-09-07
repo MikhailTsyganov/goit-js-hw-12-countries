@@ -4,17 +4,22 @@ import countryListTemplate from './templates/country-list.hbs'
 import countryTemplate from './templates/country.hbs'
 import '@pnotify/core/dist/BrightTheme.css';
 const debounce = require('lodash.debounce');
-const { error } = require('@pnotify/core');
+const { error, Stack } = require('@pnotify/core');
 
 
 function myError() {
     error({
     text: 'Too many matches found. Please enter a more specific query!',
-    width: '560px',
-        delay: 3000,
-        sticker: false,
+    width: '500px',
+    delay: 3000,
+    sticker: false,
+    icon: false,
+    closer: false,
+    stack: new Stack({
+    dir1: 'down', dir2: 'left', // Position from the top left corner.
+    firstpos1: 190, firstpos2: 50 // 90px from the top, 90px from the left.
+  })
         
-    
 })
 } 
 
