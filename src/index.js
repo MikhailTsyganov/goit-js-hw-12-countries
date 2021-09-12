@@ -11,7 +11,7 @@ function myError() {
     error({
     text: 'Too many matches found. Please enter a more specific query!',
     width: '500px',
-    delay: 3000,
+    delay: 2000,
     sticker: false,
     icon: false,
     closer: false,
@@ -41,17 +41,26 @@ function onSearchCountry(e) {
    
     
     apiService.fetchCountry()
-        .then((data) => { if (data.length <= 10) { return data } })
-        .then(countryListMarkUp)
-        .catch(err => myError(err))
+        .then((data) => {
+            if (data.length <= 10 && data.length >= 2) { countryListMarkUp(data) }
+            else if (data.length === 1) {
+            countryMarkUp(data)
+        } else {myError()} })
+        
+    
 }
 
 
 function countryListMarkUp(data) {
-    if (data.length === 1) {
-        refs.containerEl.insertAdjacentHTML('beforeend', countryTemplate(...data))
-    } else {
+    
         refs.containerEl.insertAdjacentHTML('beforeend', countryListTemplate(data))
-    }
+    
+    
+}
+
+function countryMarkUp(data) {
+    
+        refs.containerEl.insertAdjacentHTML('beforeend', countryTemplate(...data))
+    
     
 }
